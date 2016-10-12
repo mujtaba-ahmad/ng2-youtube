@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var youtube_player_component_1 = require('./youtube-player.component');
 var window_1 = require('./window');
 var youtube_player_service_1 = require('./youtube-player.service');
-var youtube_bar_component_1 = require('./youtube-bar.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, youtube_player_component_1.YoutubePlayerComponent, youtube_bar_component_1.YoutubeBarComponent],
+            imports: [platform_browser_1.BrowserModule, http_1.HttpModule],
+            declarations: [app_component_1.AppComponent, youtube_player_component_1.YoutubePlayerComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [window_1.WindowRef, youtube_player_service_1.YoutubeService]
         }), 

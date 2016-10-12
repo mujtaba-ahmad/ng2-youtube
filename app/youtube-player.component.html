@@ -1,8 +1,94 @@
-<div class="youtube-player">
-	<div id="player" class="ux-maker"></div>
-</div>
-<button (click)="clicked()">Start</button>
-<button (click)="clickedStop()">Stop</button>
-<button (click)="clickedMute()">Mute</button>
-<button (click)="clickedUnmute()">UnMute</button>
-<button (click)="clickedTime()">Track time</button>
+<div class="youtube-bar">
+		<div class="progress" (click)="changeProgress($event)">
+			<div class="progress-bar" role="progressbar"
+			aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': progress+'%'}">
+				<span class="sr-only">100% Complete</span>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 col-sm-4 col-xs-3">
+					<div class="video-details">
+						<div [ngClass]="{'active': videoDisplay, 'player': true }">
+							<img [src]="videoImage" alt="">
+							<div class="video-box-view">
+								<a (click)="toggleVideo()" class="down-screen">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="512px" height="512px">
+									<g>
+										<path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z" fill="#FFFFFF"/>
+									</g>
+									</svg>
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="512px" height="512px" viewBox="0 0 16 16">
+										<path fill="#FFFFFF" d="M11 2h-9v9l1-1v-7h7z"/>
+										<path fill="#FFFFFF" d="M5 14h9v-9l-1 1v7h-7z"/>
+										<path fill="#FFFFFF" d="M16 0h-5l1.8 1.8-4.5 4.5 1.4 1.4 4.5-4.5 1.8 1.8z"/>
+										<path fill="#FFFFFF" d="M7.7 9.7l-1.4-1.4-4.5 4.5-1.8-1.8v5h5l-1.8-1.8z"/>
+									</svg>
+								</a>
+								<div id="player" class="ux-maker"></div>
+							</div>
+						</div>
+						<div class="video-title">
+							<a href="#" class="track-title">{{title}}</a>
+							<a href="#" class="track-title-detail">{{description}}</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-6 center">
+					<div class="video-control">
+						
+						<button class="v-btn back-btn">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="512px" height="512px">
+								<path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M55.563,30.826l-22,15  C33.395,45.941,33.197,46,33,46c-0.16,0-0.32-0.038-0.467-0.116C32.205,45.711,32,45.371,32,45V31.892L11.563,45.826  C11.395,45.941,11.197,46,11,46c-0.16,0-0.32-0.038-0.467-0.116C10.205,45.711,10,45.371,10,45V15c0-0.371,0.205-0.711,0.533-0.884  c0.327-0.174,0.725-0.15,1.03,0.058L32,28.108V15c0-0.371,0.205-0.711,0.533-0.884c0.327-0.174,0.725-0.15,1.03,0.058l22,15  C55.837,29.36,56,29.669,56,30S55.837,30.64,55.563,30.826z" fill="#FFFFFF"/>
+                            </svg>
+						</button>
+						<button class="v-btn play" (click)="togglePlayPause();">
+							<svg *ngIf="play"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="512px" height="512px">
+								<path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M45.563,30.826l-22,15  C23.394,45.941,23.197,46,23,46c-0.16,0-0.321-0.038-0.467-0.116C22.205,45.711,22,45.371,22,45V15c0-0.371,0.205-0.711,0.533-0.884  c0.328-0.174,0.724-0.15,1.031,0.058l22,15C45.836,29.36,46,29.669,46,30S45.836,30.64,45.563,30.826z" fill="#ffffff"/>
+							</svg>
+							<svg *ngIf="!play" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510;" xml:space="preserve">
+								<g>
+									<g id="pause-circle-fill">
+										<path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M229.5,357h-51V153h51V357z     M331.5,357h-51V153h51V357z" fill="#FFFFFF"/>
+									</g>
+								</g>
+							</svg>
+						</button>
+						<button class="v-btn forward">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve" width="512px" height="512px">
+								<path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M55.563,30.826l-22,15  C33.395,45.941,33.197,46,33,46c-0.16,0-0.32-0.038-0.467-0.116C32.205,45.711,32,45.371,32,45V31.892L11.563,45.826  C11.395,45.941,11.197,46,11,46c-0.16,0-0.32-0.038-0.467-0.116C10.205,45.711,10,45.371,10,45V15c0-0.371,0.205-0.711,0.533-0.884  c0.327-0.174,0.725-0.15,1.03,0.058L32,28.108V15c0-0.371,0.205-0.711,0.533-0.884c0.327-0.174,0.725-0.15,1.03,0.058l22,15  C55.837,29.36,56,29.669,56,30S55.837,30.64,55.563,30.826z" fill="#FFFFFF"/>
+							</svg>
+						</button>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-3 text-right">
+					<div class="volume-main">
+						<div class="v-btn mute" (click)="toggleMuteUnmute();">
+							<svg *ngIf="mute"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 461.55 461.55" style="enable-background:new 0 0 461.55 461.55;" xml:space="preserve">
+								<g>
+									<g id="volume-off">
+										<path d="M345.525,229.5c0-45.9-25.5-84.15-63.75-102v56.1l63.75,63.75C345.525,239.7,345.525,234.6,345.525,229.5z M409.275,229.5    c0,22.95-5.1,45.9-12.75,66.3l38.25,38.25c17.85-30.6,25.5-68.85,25.5-107.1c0-109.65-76.5-201.45-178.5-224.4V56.1    C355.725,81.6,409.275,147.9,409.275,229.5z M34.425,0L1.275,33.15L121.125,153H1.275v153h102l127.5,127.5V262.65L340.425,372.3    c-17.851,12.75-35.7,22.95-58.65,30.601v53.55c35.7-7.65,66.3-22.95,94.35-45.9l51,51l33.15-33.149l-229.5-229.5L34.425,0z     M230.775,25.5l-53.55,53.55l53.55,53.55V25.5z" fill="#ffffff"/>
+									</g>
+								</g>
+							</svg>
+							<svg *ngIf="!mute" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 461.55 461.55" style="enable-background:new 0 0 461.55 461.55;" xml:space="preserve">	
+								<g>
+									<path d="M277.808,5.426C274.187,1.809,269.902,0,264.954,0c-4.945,0-9.233,1.809-12.847,5.426L157.034,100.5H82.233   c-4.952,0-9.235,1.809-12.851,5.424c-3.617,3.621-5.426,7.901-5.426,12.85v109.634c0,4.948,1.809,9.232,5.426,12.847   c3.619,3.617,7.902,5.428,12.851,5.428h74.798l95.07,95.077c3.62,3.61,7.904,5.421,12.847,5.421c4.955,0,9.236-1.811,12.854-5.421   c3.613-3.617,5.424-7.901,5.424-12.847V18.276C283.225,13.328,281.421,9.042,277.808,5.426z" fill="#FFFFFF"/>
+								</g>
+							</svg>
+						</div>
+						<div class="v-btn volume">
+							<div class="v-bar-main">
+								<div class="v-bar v-1" [ngClass]="{active: volume[0]}" (click)="setVolume(1)" ></div>
+								<div class="v-bar v-2" [ngClass]="{active: volume[1]}" (click)="setVolume(2)" ></div>
+								<div class="v-bar v-3" [ngClass]="{active: volume[2]}" (click)="setVolume(3)" ></div>
+								<div class="v-bar v-4" [ngClass]="{active: volume[3]}" (click)="setVolume(4)" ></div>
+								<div class="v-bar v-5" [ngClass]="{active: volume[4]}" (click)="setVolume(5)" ></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

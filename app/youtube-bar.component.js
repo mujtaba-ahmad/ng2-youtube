@@ -13,11 +13,24 @@ var youtube_player_service_1 = require('./youtube-player.service');
 var YoutubeBarComponent = (function () {
     function YoutubeBarComponent(ytPlayer) {
         this.ytPlayer = ytPlayer;
+        this.start = false;
+        console.log(this.id);
+        console.log(this.title);
+        //    this.ytPlayer.fetchVideoData(id, null)
+        //                   .subscribe(
+        //                         res => {
+        //                             this.ytPlayer.launchPlayer(this.id, "")
+        //                         },
+        //                         errorMsg => {
+        //                             this.errorMsg = errorMsg
+        //                         }
+        //                     )
     }
+    YoutubeBarComponent.prototype.ngOnInit = function () { };
     YoutubeBarComponent.prototype.clicked = function () {
         this.id = "VzjJR6tTx1c";
-        this.title = "Mujtaba";
-        this.launchYTPlayer(this.id, this.title);
+        //this.title = "Mujtaba";
+        this.launchYTPlayer(this.id, "");
     };
     YoutubeBarComponent.prototype.launchYTPlayer = function (id, title) {
         this.ytPlayer.launchPlayer(id, title);
