@@ -93,14 +93,14 @@ export class AppComponent implements AfterViewInit{
   selector: 'my-app',
   template: `<h1>My First Angular App</h1>
             <youtube-player [id]="id" [apiKey]="apiKey"></youtube-player>`
-})
+});
 export class AppComponent implements AfterViewInit{
- private id: string;
- private apiKey: string;
- constructor() {
-  this.id = "VzjJR6tTx1c";
-  this.apiKey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
-  }
+      private id: string;
+      private apiKey: string;
+      constructor() {
+            this.id = "VzjJR6tTx1c";
+            this.apiKey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
+      }
 }
 ```
 
