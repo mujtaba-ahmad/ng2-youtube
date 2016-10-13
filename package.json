@@ -9,6 +9,10 @@
     "tsc:w": "tsc -w",
     "typings": "typings"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mujtaba-ahmad/ng2-youtube"
+  },
   "license": "ISC",
   "dependencies": {
     "@angular/common": "~2.0.0",
