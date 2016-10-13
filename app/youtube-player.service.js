@@ -18,7 +18,7 @@ var YoutubeService = (function () {
         this._window = _window;
         this._http = _http;
         this.videoUrl = 'https://www.googleapis.com/youtube/v3/videos';
-        this.apikey = "";
+        this.apikey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
         this.playerStateEmitter = new BehaviorSubject_1.BehaviorSubject(0);
         this.youtube = {
             ready: false,

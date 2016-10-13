@@ -10,7 +10,7 @@ import { IVideo } from './IVideo';
 export class YoutubeService {
   
   private videoUrl = 'https://www.googleapis.com/youtube/v3/videos';
-  private apikey: string = "";
+  private apikey: string = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
   private playerStateEmitter : BehaviorSubject<number> = new BehaviorSubject(0);
   public youtube: any = {
     ready: false,
