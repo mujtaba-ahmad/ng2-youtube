@@ -63,7 +63,7 @@ import { YoutubePlayerComponent, WindowRef, YoutubeService } from './ng2-youtube
  ### 5 Add youtube iframe Api in html through main component
  -In your main component implement it with AfterViewInit so that it appends iframe api file after the view is initiated. To make sure it loaded after the view is created, else it will not work.
  ```ts
- import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 export class AppComponent implements AfterViewInit{
       ngAfterViewInit() {
             var tag = document.createElement('script');
@@ -95,12 +95,12 @@ export class AppComponent implements AfterViewInit{
             <youtube-player [id]="id" [apiKey]="apiKey"></youtube-player>
 })
 export class AppComponent implements AfterViewInit{
-	private id: string;
-	private apiKey: string;
-	constructor() {
-		this.id = "VzjJR6tTx1c";
-		this.apiKey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
-	}
+ private id: string;
+ private apiKey: string;
+ constructor() {
+  this.id = "VzjJR6tTx1c";
+  this.apiKey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
+  }
 }
 ```
 
