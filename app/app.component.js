@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
         this.id = "VzjJR6tTx1c";
+        this.apiKey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
     }
     AppComponent.prototype.ngAfterViewInit = function () {
         var tag = document.createElement('script');
@@ -33,7 +34,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<h1>My First Angular App</h1>\n            <youtube-player [id]=\"id\"></youtube-player>{{id}}\n\t\t\t<a href=\"#\" (click)=\"changeVideo(1)\">video 1</a>\n\t\t\t<a href=\"#\" (click)=\"changeVideo(2)\">video 2</a>\n\t\t\t<a href=\"#\" (click)=\"changeVideo(3)\">video 3</a>"
+            template: "<h1>My First Angular App</h1>\n            <youtube-player [id]=\"id\" [apiKey]=\"apiKey\"></youtube-player>{{id}}\n\t\t\t<a href=\"#\" (click)=\"changeVideo(1)\">video 1</a>\n\t\t\t<a href=\"#\" (click)=\"changeVideo(2)\">video 2</a>\n\t\t\t<a href=\"#\" (click)=\"changeVideo(3)\">video 3</a>"
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

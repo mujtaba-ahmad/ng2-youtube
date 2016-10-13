@@ -13,6 +13,7 @@ import { YoutubeService } from './youtube-player.service';
 export class YoutubePlayerComponent implements OnInit, OnChanges{
     private errorMsg: string;
     @Input() play: boolean;
+    @Input() apiKey: string;
     private time: number = 1;
     private duration: number;
     private title: string;
@@ -62,7 +63,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                }
             }
         );
-        this.ytPlayer.fetchVideoData(this.id, null)
+        this.ytPlayer.fetchVideoData(this.id, this.apiKey)
                       .subscribe(
                             res => {
                                 if (res.items[0].snippet.title)
@@ -80,7 +81,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                         )
     }
     ngOnChanges() {
-        this.ytPlayer.fetchVideoData(this.id, null)
+        this.ytPlayer.fetchVideoData(this.id, this.apiKey)
                       .subscribe(
                             res => {
                                 if (res.items[0].snippet.title)

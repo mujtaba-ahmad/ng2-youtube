@@ -48,7 +48,7 @@ var YoutubePlayerComponent = (function () {
                 });
             }
         });
-        this.ytPlayer.fetchVideoData(this.id, null)
+        this.ytPlayer.fetchVideoData(this.id, this.apiKey)
             .subscribe(function (res) {
             if (res.items[0].snippet.title)
                 _this.title = res.items[0].snippet.title;
@@ -64,7 +64,7 @@ var YoutubePlayerComponent = (function () {
     };
     YoutubePlayerComponent.prototype.ngOnChanges = function () {
         var _this = this;
-        this.ytPlayer.fetchVideoData(this.id, null)
+        this.ytPlayer.fetchVideoData(this.id, this.apiKey)
             .subscribe(function (res) {
             if (res.items[0].snippet.title)
                 _this.title = res.items[0].snippet.title;
@@ -130,6 +130,10 @@ var YoutubePlayerComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Boolean)
     ], YoutubePlayerComponent.prototype, "play", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], YoutubePlayerComponent.prototype, "apiKey", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
