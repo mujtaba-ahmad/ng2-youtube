@@ -67,17 +67,26 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         this.ytPlayer.fetchVideoData(this.id, this.apiKey)
                       .subscribe(
                             res => {
-                                if (res.items[0].snippet.title)
-                                    this.title = res.items[0].snippet.title;
-                                if (res.items[0].snippet.description)
-                                    this.description = res.items[0].snippet.description
-                                if (res.items["0"].snippet.thumbnails.default)
-                                    this.videoImage = res.items["0"].snippet.thumbnails.default.url
-                                this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-                                this.launchYTPlayer(this.id, this.title);
+                                if (res.items.length > 0) {
+                                    if (res.items[0].snippet.title)
+                                        this.title = res.items[0].snippet.title;
+                                    if (res.items[0].snippet.description)
+                                        this.description = res.items[0].snippet.description
+                                    if (res.items["0"].snippet.thumbnails.default)
+                                        this.videoImage = res.items["0"].snippet.thumbnails.default.url
+                                    this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
+                                    this.launchYTPlayer(this.id, this.title);
+                                }
+                                else {
+                                    this.title = "Please provide a valid video Id";
+                                }
+                                
                             },
                             errorMsg => {
-                                this.errorMsg = errorMsg
+                                if (errorMsg.error.errors["0"].reason == "keyInvalid" ) {
+                                    this.title = "Please provide a valid api key";
+                                }
+                                this.errorMsg = errorMsg;
                             }
                         )
     }
@@ -85,17 +94,25 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         this.ytPlayer.fetchVideoData(this.id, this.apiKey)
                       .subscribe(
                             res => {
-                                if (res.items[0].snippet.title)
-                                    this.title = res.items[0].snippet.title;
-                                if (res.items[0].snippet.description)
-                                    this.description = res.items[0].snippet.description
-                                if (res.items["0"].snippet.thumbnails.default)
-                                    this.videoImage = res.items["0"].snippet.thumbnails.default.url
-                                this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-                                this.launchYTPlayer(this.id, this.title);
+                                if (res.items.length > 0) {
+                                    if (res.items[0].snippet.title)
+                                        this.title = res.items[0].snippet.title;
+                                    if (res.items[0].snippet.description)
+                                        this.description = res.items[0].snippet.description
+                                    if (res.items["0"].snippet.thumbnails.default)
+                                        this.videoImage = res.items["0"].snippet.thumbnails.default.url
+                                    this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
+                                    this.launchYTPlayer(this.id, this.title);
+                                }
+                                else {
+                                    this.title = "Please provide a valid video Id";
+                                }
                             },
                             errorMsg => {
-                                this.errorMsg = errorMsg
+                                if (errorMsg.error.errors["0"].reason == "keyInvalid" ) {
+                                    this.title = "Please provide a valid api key";
+                                }
+                                this.errorMsg = errorMsg;
                             }
                         )
     }
