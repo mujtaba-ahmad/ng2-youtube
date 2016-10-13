@@ -3,10 +3,11 @@ import { window } from '@angular/platform-browser/src/facade/browser';
 import { YoutubeService } from './youtube-player.service';
 
 @Component({
-  selector: 'youtube-player',
-  templateUrl: '/app/youtube-player.component.html',
-  styleUrls: ['./app/youtube-bar.component.css'],
-  providers: [YoutubeService]
+    module: module.id,
+    selector: 'youtube-player',
+    templateUrl: '/app/youtube-player.component.html',
+    styleUrls: ['./app/youtube-bar.component.css'],
+    providers: [YoutubeService]
 })
 
 

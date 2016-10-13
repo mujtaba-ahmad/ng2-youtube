@@ -53,7 +53,7 @@ import { HttpModule } from '@angular/http';
 ```
  -In your main module also import ng2-youtube componentsand services.
 ```ts
-import { YoutubePlayerComponent, WindowRef, YoutubeService } from './ng2-youtube/index';
+import { YoutubePlayerComponent, WindowRef, YoutubeService } from 'ng2-youtube/index';
 ```
  -Add component and providers into our ngModule
  ```ts
@@ -82,7 +82,7 @@ export class AppComponent implements AfterViewInit{
  To show youtube bar in any component import youtube component in you component.
  
  ```ts
- import { YoutubePlayerComponent } from './ng2-youtube/index'
+ import { YoutubePlayerComponent } from 'ng2-youtube/index'
  ```
  -In component decorator add youtube-player selecter like this.
  ```ts
