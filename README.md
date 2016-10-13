@@ -92,7 +92,7 @@ export class AppComponent implements AfterViewInit{
  @Component({
   selector: 'my-app',
   template: `<h1>My First Angular App</h1>
-            <youtube-player [id]="id" [apiKey]="apiKey"></youtube-player>
+            <youtube-player [id]="id" [apiKey]="apiKey"></youtube-player>`
 })
 export class AppComponent implements AfterViewInit{
  private id: string;
