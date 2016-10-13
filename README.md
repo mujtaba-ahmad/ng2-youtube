@@ -6,6 +6,10 @@ Angular2 youtube light player, using youtube iframe api. Inspired by echoes play
 2. show sticky youtube bar at the bottom of page.
 3. Youtube bar has video data with video display and with controllers like play, pause, volume, mute, unmute progressbar.
 
+## Demo
+![demo image](https://www.diigo.com/item/image/5t8tl/n8vt)
+
+
 ## Usage
 Follow these steps:
 
