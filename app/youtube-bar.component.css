@@ -12,6 +12,7 @@
     border-top: 1px solid #1e1e20;
     padding: 0px;
     height: 51px;
+    z-index: 5555;
 }
 .youtube-bar .video-details .player img {
     height: 100%;
@@ -144,7 +145,7 @@
 .youtube-bar .progress {
     margin: 0;
     border-radius: 0;
-    height: 3px;
+    height: 6px;
     position: fixed;
     left: 0;
     bottom: 51px;

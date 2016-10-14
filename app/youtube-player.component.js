@@ -50,15 +50,23 @@ var YoutubePlayerComponent = (function () {
         });
         this.ytPlayer.fetchVideoData(this.id, this.apiKey)
             .subscribe(function (res) {
-            if (res.items[0].snippet.title)
-                _this.title = res.items[0].snippet.title;
-            if (res.items[0].snippet.description)
-                _this.description = res.items[0].snippet.description;
-            if (res.items["0"].snippet.thumbnails.default)
-                _this.videoImage = res.items["0"].snippet.thumbnails.default.url;
-            _this.duration = Number(_this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-            _this.launchYTPlayer(_this.id, _this.title);
+            if (res.items.length > 0) {
+                if (res.items[0].snippet.title)
+                    _this.title = res.items[0].snippet.title;
+                if (res.items[0].snippet.description)
+                    _this.description = res.items[0].snippet.description;
+                if (res.items["0"].snippet.thumbnails.default)
+                    _this.videoImage = res.items["0"].snippet.thumbnails.default.url;
+                _this.duration = Number(_this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
+                _this.launchYTPlayer(_this.id, _this.title);
+            }
+            else {
+                _this.title = "Please provide a valid video Id";
+            }
         }, function (errorMsg) {
+            if (errorMsg.error.errors["0"].reason == "keyInvalid") {
+                _this.title = "Please provide a valid api key";
+            }
             _this.errorMsg = errorMsg;
         });
     };
@@ -66,15 +74,23 @@ var YoutubePlayerComponent = (function () {
         var _this = this;
         this.ytPlayer.fetchVideoData(this.id, this.apiKey)
             .subscribe(function (res) {
-            if (res.items[0].snippet.title)
-                _this.title = res.items[0].snippet.title;
-            if (res.items[0].snippet.description)
-                _this.description = res.items[0].snippet.description;
-            if (res.items["0"].snippet.thumbnails.default)
-                _this.videoImage = res.items["0"].snippet.thumbnails.default.url;
-            _this.duration = Number(_this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-            _this.launchYTPlayer(_this.id, _this.title);
+            if (res.items.length > 0) {
+                if (res.items[0].snippet.title)
+                    _this.title = res.items[0].snippet.title;
+                if (res.items[0].snippet.description)
+                    _this.description = res.items[0].snippet.description;
+                if (res.items["0"].snippet.thumbnails.default)
+                    _this.videoImage = res.items["0"].snippet.thumbnails.default.url;
+                _this.duration = Number(_this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
+                _this.launchYTPlayer(_this.id, _this.title);
+            }
+            else {
+                _this.title = "Please provide a valid video Id";
+            }
         }, function (errorMsg) {
+            if (errorMsg.error.errors["0"].reason == "keyInvalid") {
+                _this.title = "Please provide a valid api key";
+            }
             _this.errorMsg = errorMsg;
         });
     };
@@ -140,9 +156,10 @@ var YoutubePlayerComponent = (function () {
     ], YoutubePlayerComponent.prototype, "id", void 0);
     YoutubePlayerComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'youtube-player',
-            templateUrl: '/app/youtube-player.component.html',
-            styleUrls: ['./app/youtube-bar.component.css'],
+            templateUrl: './youtube-player.component.html',
+            styleUrls: ['./youtube-bar.component.css'],
             providers: [youtube_player_service_1.YoutubeService]
         }), 
         __metadata('design:paramtypes', [youtube_player_service_1.YoutubeService])

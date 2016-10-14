@@ -1,19 +1,44 @@
 {
-  "name": "ng2-youtube",
-  "version": "1.0.3",
-  "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "lite": "lite-server",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+  "_args": [
+    [
+      "ng2-youtube",
+      "/www/projects/replay_frontend"
+    ]
+  ],
+  "_from": "ng2-youtube@latest",
+  "_id": "ng2-youtube@1.0.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/ng2-youtube",
+  "_nodeVersion": "4.2.6",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ng2-youtube-1.0.3.tgz_1476370257509_0.7636949343141168"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mujtaba-ahmad/ng2-youtube"
+  "_npmUser": {
+    "email": "mmuujji@gmail.com",
+    "name": "mujtaba187"
   },
-  "license": "ISC",
+  "_npmVersion": "3.5.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "ng2-youtube",
+    "raw": "ng2-youtube",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_shasum": "e06d25627186da2a67f71a50d29b263eaf8cd332",
+  "_shrinkwrap": null,
+  "_spec": "ng2-youtube",
+  "_where": "/www/projects/replay_frontend",
+  "bugs": {
+    "url": "https://github.com/mujtaba-ahmad/ng2-youtube/issues"
+  },
   "dependencies": {
     "@angular/common": "~2.0.0",
     "@angular/compiler": "~2.0.0",
@@ -33,10 +58,41 @@
     "systemjs": "0.19.39",
     "zone.js": "^0.6.25"
   },
+  "description": "Angular2 youtube light player, using youtube iframe api. Inspired by echoes player. Complatible with latest release of angular 2.x.x.",
   "devDependencies": {
     "concurrently": "^3.0.0",
     "lite-server": "^2.2.2",
     "typescript": "^2.0.3",
     "typings": "^1.4.0"
-  }
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "e06d25627186da2a67f71a50d29b263eaf8cd332",
+    "tarball": "https://registry.npmjs.org/ng2-youtube/-/ng2-youtube-1.0.3.tgz"
+  },
+  "gitHead": "ba35b04a5c341e687f52bbc659f1f84c2a32aeaf",
+  "homepage": "https://github.com/mujtaba-ahmad/ng2-youtube#readme",
+  "license": "ISC",
+  "maintainers": [
+    {
+      "name": "mujtaba187",
+      "email": "mmuujji@gmail.com"
+    }
+  ],
+  "name": "ng2-youtube",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mujtaba-ahmad/ng2-youtube.git"
+  },
+  "scripts": {
+    "lite": "lite-server",
+    "postinstall": "typings install",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
+  },
+  "version": "1.0.3"
 }
