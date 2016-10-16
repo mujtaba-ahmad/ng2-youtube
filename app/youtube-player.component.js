@@ -17,6 +17,9 @@ var YoutubePlayerComponent = (function () {
         this.volume = [true, true, true, true, true];
         this.videoDisplay = true;
         this.progress = 0.00;
+        this.progressTime = "00:00";
+        this.tempProgress = 0;
+        this.placeholder = true;
         this.time = 0;
         this.play = false;
         this.mute = false;
@@ -47,6 +50,12 @@ var YoutubePlayerComponent = (function () {
                     clearInterval(_this.timer);
                 });
             }
+            else {
+                _this.zone.run(function () {
+                    _this.play = true;
+                    clearInterval(_this.timer);
+                });
+            }
         });
         this.ytPlayer.fetchVideoData(this.id, this.apiKey)
             .subscribe(function (res) {
@@ -59,6 +68,7 @@ var YoutubePlayerComponent = (function () {
                     _this.videoImage = res.items["0"].snippet.thumbnails.default.url;
                 _this.duration = Number(_this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
                 _this.launchYTPlayer(_this.id, _this.title);
+                _this.placeholder = false;
             }
             else {
                 _this.title = "Please provide a valid video Id";
@@ -93,6 +103,23 @@ var YoutubePlayerComponent = (function () {
             }
             _this.errorMsg = errorMsg;
         });
+    };
+    YoutubePlayerComponent.prototype.over = function (event) {
+        var singleBar = this.duration / 100;
+        this.singleSec = 1 / singleBar;
+        if (event.toElement.className == "progress") {
+            this.tempProgress = (event.clientX) / event.toElement.offsetWidth * 100;
+        }
+        else {
+            this.tempProgress = (event.clientX) / event.toElement.offsetParent.clientWidth * 100;
+        }
+        var newTime = (1 / this.singleSec) * this.tempProgress;
+        var minutes = Math.floor(newTime / 60);
+        var seconds = newTime - minutes * 60;
+        this.progressTime = this.str_pad_left(minutes, '0', 2) + ':' + this.str_pad_left(seconds, '0', 2);
+    };
+    YoutubePlayerComponent.prototype.str_pad_left = function (string, pad, length) {
+        return (new Array(length + 1).join(pad) + string).slice(-length);
     };
     YoutubePlayerComponent.prototype.launchYTPlayer = function (id, title) {
         this.ytPlayer.launchPlayer(id, title);
@@ -141,6 +168,9 @@ var YoutubePlayerComponent = (function () {
         var newTime = (1 / this.singleSec) * this.progress;
         this.ytPlayer.seekTo(newTime);
         event.preventDefault();
+    };
+    YoutubePlayerComponent.prototype.showPlaceholder = function (value) {
+        console.log(value);
     };
     __decorate([
         core_1.Input(), 

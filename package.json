@@ -6,7 +6,7 @@
     ]
   ],
   "_from": "ng2-youtube@latest",
-  "_id": "ng2-youtube@1.0.4",
+  "_id": "ng2-youtube@1.0.3",
   "_inCache": true,
   "_installable": true,
   "_location": "/ng2-youtube",
@@ -94,5 +94,5 @@
     "tsc:w": "tsc -w",
     "typings": "typings"
   },
-  "version": "1.0.5"
+  "version": "1.0.6"
 }

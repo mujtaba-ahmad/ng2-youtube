@@ -99,11 +99,9 @@ export class YoutubeService {
     return this.youtube;
   }
   playVideo(): void {
-    console.log("ser: play");
     this.youtube.player.playVideo();
   }
   pauseVideo(): void {
-    console.log("ser: pause");
     this.youtube.player.pauseVideo()
   }
   muteVideo(): void {

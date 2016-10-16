@@ -12,9 +12,10 @@ import { YoutubeService } from './youtube-player.service';
 
 
 export class YoutubePlayerComponent implements OnInit, OnChanges{
-    private errorMsg: string;
+    
     @Input() play: boolean;
     @Input() apiKey: string;
+    @Input() id: string;
     private time: number = 1;
     private duration: number;
     private title: string;
@@ -25,8 +26,11 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
     private zone: NgZone;
     private videoDisplay: boolean = true;
     private timer;
-    @Input() id: string;
+    private errorMsg: string;
     private progress: number = 0.00;
+    private progressTime: string = "00:00";
+    private tempProgress: number = 0;
+    private placeholder: boolean = true;
     singleSec: number;
     constructor (public ytPlayer: YoutubeService) {
         this.time = 0;
@@ -59,8 +63,14 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                     this.zone.run(() => {
                         this.play = true;
                         clearInterval(this.timer);
-                    } );
+                    });
                     
+               }
+               else {
+                   this.zone.run(() => {
+                        this.play = true;
+                        clearInterval(this.timer);
+                    });
                }
             }
         );
@@ -74,8 +84,10 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                                         this.description = res.items[0].snippet.description
                                     if (res.items["0"].snippet.thumbnails.default)
                                         this.videoImage = res.items["0"].snippet.thumbnails.default.url
+                                        
                                     this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
                                     this.launchYTPlayer(this.id, this.title);
+                                    this.placeholder = false;
                                 }
                                 else {
                                     this.title = "Please provide a valid video Id";
@@ -115,6 +127,23 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                                 this.errorMsg = errorMsg;
                             }
                         )
+    }
+    over(event) {
+        var singleBar = this.duration / 100;
+        this.singleSec = 1 / singleBar;
+        if (event.toElement.className == "progress") {
+            this.tempProgress = (event.clientX) / event.toElement.offsetWidth * 100
+        }
+        else {
+            this.tempProgress = (event.clientX) / event.toElement.offsetParent.clientWidth * 100
+        }
+        var newTime = (1 / this.singleSec) * this.tempProgress;
+        var minutes = Math.floor(newTime / 60);
+        var seconds = newTime - minutes * 60;
+        this.progressTime = this.str_pad_left(minutes,'0',2) + ':' + this.str_pad_left(seconds,'0',2);
+    }
+    str_pad_left(string,pad,length) {
+        return (new Array(length+1).join(pad)+string).slice(-length);
     }
     launchYTPlayer(id: string, title: string): void {
         this.ytPlayer.launchPlayer(id, title);
@@ -165,6 +194,5 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         var newTime = (1 / this.singleSec) * this.progress;
         this.ytPlayer.seekTo(newTime);
         event.preventDefault();
-        
     }
  }
