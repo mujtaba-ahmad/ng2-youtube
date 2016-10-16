@@ -1,44 +1,4 @@
 {
-  "_args": [
-    [
-      "ng2-youtube",
-      "/www/projects/replay_frontend"
-    ]
-  ],
-  "_from": "ng2-youtube@latest",
-  "_id": "ng2-youtube@1.0.3",
-  "_inCache": true,
-  "_installable": true,
-  "_location": "/ng2-youtube",
-  "_nodeVersion": "4.2.6",
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/ng2-youtube-1.0.3.tgz_1476370257509_0.7636949343141168"
-  },
-  "_npmUser": {
-    "email": "mmuujji@gmail.com",
-    "name": "mujtaba187"
-  },
-  "_npmVersion": "3.5.2",
-  "_phantomChildren": {},
-  "_requested": {
-    "name": "ng2-youtube",
-    "raw": "ng2-youtube",
-    "rawSpec": "",
-    "scope": null,
-    "spec": "latest",
-    "type": "tag"
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_shasum": "e06d25627186da2a67f71a50d29b263eaf8cd332",
-  "_shrinkwrap": null,
-  "_spec": "ng2-youtube",
-  "_where": "/www/projects/replay_frontend",
-  "bugs": {
-    "url": "https://github.com/mujtaba-ahmad/ng2-youtube/issues"
-  },
   "dependencies": {
     "@angular/common": "~2.0.0",
     "@angular/compiler": "~2.0.0",
@@ -86,6 +46,14 @@
     "type": "git",
     "url": "git+https://github.com/mujtaba-ahmad/ng2-youtube.git"
   },
+   "keywords": [
+    "youtube",
+    "angular2",
+    "angular 2",
+    "youtube-bar",
+    "player",
+    "ng2"
+  ],
   "scripts": {
     "lite": "lite-server",
     "postinstall": "typings install",
@@ -94,5 +62,5 @@
     "tsc:w": "tsc -w",
     "typings": "typings"
   },
-  "version": "1.0.6"
+  "version": "1.0.7"
 }
