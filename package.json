@@ -41,7 +41,6 @@
   ],
   "name": "ng2-youtube",
   "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mujtaba-ahmad/ng2-youtube.git"
@@ -62,5 +61,5 @@
     "tsc:w": "tsc -w",
     "typings": "typings"
   },
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
