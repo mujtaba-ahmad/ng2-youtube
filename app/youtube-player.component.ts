@@ -6,7 +6,8 @@ import { YoutubeService } from './youtube-player.service';
     moduleId: module.id,
     selector: 'youtube-player',
     templateUrl: './youtube-player.component.html',
-    styleUrls: ['./youtube-bar.component.css']
+    styleUrls: ['./youtube-bar.component.css'],
+    providers: [YoutubeService]
 })
 
 
@@ -15,7 +16,6 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
     @Input() play: boolean;
     @Input() apiKey: string;
     @Input() id: string;
-    @Input() startTime: number;
     private time: number = 1;
     private duration: number;
     private title: string;
@@ -25,7 +25,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
     private volume: boolean[] = [true, true, true, true, true];
     private zone: NgZone;
     private videoDisplay: boolean = true;
-    private timer: any;
+    private timer;
     private errorMsg: string;
     private progress: number = 0.00;
     private progressTime: string = "00:00";
@@ -56,6 +56,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                                 clearInterval(this.timer);
                             }
                          }, 1000)
+
                    } );
                }
                else if(res == 2) { //stop
@@ -85,10 +86,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                                         this.videoImage = res.items["0"].snippet.thumbnails.default.url
                                         
                                     this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-                                    this.ytPlayer.startTime = this.startTime;
                                     this.launchYTPlayer(this.id, this.title);
-                                    //starting time                                    
-                                    console.log(this.startTime);
                                     this.placeholder = false;
                                 }
                                 else {
@@ -116,10 +114,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                                     if (res.items["0"].snippet.thumbnails.default)
                                         this.videoImage = res.items["0"].snippet.thumbnails.default.url
                                     this.duration = Number(this.ytPlayer.convert_time(res.items[0].contentDetails.duration));
-                                    this.ytPlayer.startTime = this.startTime;                                    
                                     this.launchYTPlayer(this.id, this.title);
-                                    //starting time
-                                    console.log(this.startTime);                                  
                                 }
                                 else {
                                     this.title = "Please provide a valid video Id";
@@ -133,7 +128,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
                             }
                         )
     }
-    over(event: any) {
+    over(event) {
         var singleBar = this.duration / 100;
         this.singleSec = 1 / singleBar;
         if (event.toElement.className == "progress") {
@@ -147,7 +142,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         var seconds = newTime - minutes * 60;
         this.progressTime = this.str_pad_left(minutes,'0',2) + ':' + this.str_pad_left(seconds,'0',2);
     }
-    str_pad_left(string: any, pad: any, length: any) {
+    str_pad_left(string,pad,length) {
         return (new Array(length+1).join(pad)+string).slice(-length);
     }
     launchYTPlayer(id: string, title: string): void {
@@ -173,7 +168,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         }
         this.mute = !this.mute;
     }
-    setVolume(value: any) {
+    setVolume(value) {
         this.mute = false;
         for(var i = 1; i <= 5; i++){
             if(i <= value) {
@@ -189,7 +184,7 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
     toggleVideo() {
         this.videoDisplay = !this.videoDisplay;
     }
-    changeProgress(event: any) {
+    changeProgress(event) {
         if (event.toElement.className == "progress") {
             this.progress = (event.clientX) / event.toElement.offsetWidth * 100
         }
@@ -200,7 +195,4 @@ export class YoutubePlayerComponent implements OnInit, OnChanges{
         this.ytPlayer.seekTo(newTime);
         event.preventDefault();
     }
-    // close() {
-    //     this.ytPlayer.destroyPlayer();
-    // }
  }
