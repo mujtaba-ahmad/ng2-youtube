@@ -10,8 +10,11 @@ import { IVideo } from './IVideo';
 export class YoutubeService {
   
   private videoUrl = 'https://www.googleapis.com/youtube/v3/videos';
-  private apikey: string = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
-  private playerStateEmitter : BehaviorSubject<number> = new BehaviorSubject(0);
+  private apikey: string = "AIzaSyB0FUrFXTJaE2yI4UuZQcPnShcZq9866ks";
+  private playerStateEmitter: BehaviorSubject<number> = new BehaviorSubject(0);
+  private event: any;
+  private playerReady: boolean = false;
+  public startTime: number;
   public youtube: any = {
     ready: false,
     player: null,
@@ -47,21 +50,30 @@ export class YoutubeService {
       return Observable.throw(errMsg);
   }
     
-  bindPlayer(elementId): void {
+  bindPlayer(elementId: any): void {
     this.youtube.playerId = elementId;
   };
 
   createPlayer(): void {
     var that = this;
-    return new that._window['YT'].Player("player", {
+    return new that._window.nativeWindow['YT'].Player("player", {
       height: that.youtube.playerHeight,
       width: that.youtube.playerWidth,
       playerVars: { 'autoplay': 0, 'controls': 1 },
       events: {
-           'onReady': function() { 
-              that.youtube.player.loadVideoById(that.youtube.videoId);
+           'onReady': function(event: any) {
+              event.target.loadVideoById(that.youtube.videoId);
+              event.target.loadVideoById(that.youtube.videoId);
+              that.playerReady = true;
+              // this.playerReady = true;
+              that.event = event;
+              // this.event = event.target;
+              if (that.startTime) {
+                event.target.seekTo(that.startTime, true);
+                that.startTime = null;
+              }   
            },
-           'onStateChange': function(event) {
+           'onStateChange': function(event: any) {
               that.playerStateEmitter.next(event.data);
            }
       }
@@ -70,29 +82,45 @@ export class YoutubeService {
 
   loadPlayer(): void {
     if (this.youtube.ready && this.youtube.playerId) {
-      if (this.youtube.player) {
-      this.youtube.player.destroy();
+        console.log(this.event);     
+      if (this.event && this.playerReady) {
+        console.log('000000000');        
+        console.log(this.event);
+        this.event.target.destroy();
+        this.playerReady = false;
+        this.event = null;
       }
+      console.log('111111111');
       this.youtube.player = this.createPlayer();
+      console.log('333333', this.youtube.player);
+      
+    }
+  }
+
+  destroyPlayer(): void {
+    if (this.event && this.playerReady) {
+      this.event.target.destroy();
+      this.playerReady = false;
+      this.event = null;
     }
   }
 
   setupPlayer () {
-    this._window['onYouTubeIframeAPIReady'] = () => {
-      if (this._window['YT']) {
+    this._window.nativeWindow['onYouTubeIframeAPIReady'] = () => {
+      if (this._window.nativeWindow['YT']) {
          this.youtube.ready = true;
          this.bindPlayer('placeholder');
          this.loadPlayer();
       }
     };
-    if (this._window['YT'] && this._window['YT'].Player) {
+    if (this._window.nativeWindow['YT'] && this._window.nativeWindow['YT'].Player) {
          this.youtube.ready = true;
          this.bindPlayer('placeholder');
          this.loadPlayer();
     }
   }
 
-  launchPlayer(id, title):void {
+  launchPlayer(id: any, title: any):void {
     this.setupPlayer();
     this.youtube.videoId = id;
     this.youtube.videoTitle = title;
@@ -112,15 +140,20 @@ export class YoutubeService {
         this.youtube.player.unMute();
   }
   fetchTime(): number{
-      return this.youtube.player.getCurrentTime();
+      if (this.playerReady && this.event) {
+        console.log(this.event.target.getCurrentTime());
+        // console.log(this.youtube.player.getCurrentTime());
+        return this.event.target.getCurrentTime();
+      }
+      return 0;
   }
-  setVolume(value): void {
+  setVolume(value: any): void {
     this.youtube.player.setVolume(value);
   }
-  seekTo(time): void {
+  seekTo(time: any): void {
     this.youtube.player.seekTo(time, true)
   }
-  convert_time(duration) {
+  convert_time(duration: any) {
       var a = duration.match(/\d+/g);
 
       if (duration.indexOf('M') >= 0 && duration.indexOf('H') == -1 && duration.indexOf('S') == -1) {
@@ -153,4 +186,3 @@ export class YoutubeService {
       return duration;
   }
 }
-
