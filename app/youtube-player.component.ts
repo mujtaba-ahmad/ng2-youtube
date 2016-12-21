@@ -5,8 +5,8 @@ import { YoutubeService } from './youtube-player.service';
 @Component({
     moduleId: module.id,
     selector: 'youtube-player',
-    templateUrl: './youtube-player.component.html',
-    styleUrls: ['./youtube-bar.component.css']
+    templateUrl: 'youtube-player.component.html',
+    styleUrls: ['youtube-bar.component.css']
     // providers: [YoutubeService]
 })
 
