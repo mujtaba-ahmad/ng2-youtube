@@ -24,7 +24,7 @@ export class YoutubeService {
     playerWidth: '100%'
   }
   constructor (private _window: WindowRef, private _http: Http) {
-      this._window = this._window.nativeWindow;
+      // this._window = this._window;
       this.setupPlayer();
   }
   getStateChange(): Observable<number> {
