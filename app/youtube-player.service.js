@@ -8,18 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var Rx_1 = require('rxjs/Rx');
-var http_1 = require('@angular/http');
-var BehaviorSubject_1 = require('rxjs/BehaviorSubject');
-var window_1 = require('./window');
+var core_1 = require("@angular/core");
+var Rx_1 = require("rxjs/Rx");
+var http_1 = require("@angular/http");
+var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
+var window_1 = require("./window");
 var YoutubeService = (function () {
     function YoutubeService(_window, _http) {
         this._window = _window;
         this._http = _http;
         this.videoUrl = 'https://www.googleapis.com/youtube/v3/videos';
-        this.apikey = "AIzaSyCe0Bk74tTA11XtbRQDqgUy9n9d0tkjv4k";
+        this.apikey = "AIzaSyB0FUrFXTJaE2yI4UuZQcPnShcZq9866ks";
         this.playerStateEmitter = new BehaviorSubject_1.BehaviorSubject(0);
+        this.playerReady = false;
         this.youtube = {
             ready: false,
             player: null,
@@ -29,7 +30,7 @@ var YoutubeService = (function () {
             playerHeight: '100%',
             playerWidth: '100%'
         };
-        this._window = this._window.nativeWindow;
+        // this._window = this._window;
         this.setupPlayer();
     }
     YoutubeService.prototype.getStateChange = function () {
@@ -57,13 +58,23 @@ var YoutubeService = (function () {
     ;
     YoutubeService.prototype.createPlayer = function () {
         var that = this;
-        return new that._window['YT'].Player("player", {
+        return new that._window.nativeWindow['YT'].Player("player", {
             height: that.youtube.playerHeight,
             width: that.youtube.playerWidth,
             playerVars: { 'autoplay': 0, 'controls': 1 },
             events: {
-                'onReady': function () {
-                    that.youtube.player.loadVideoById(that.youtube.videoId);
+                'onReady': function (event) {
+                    // that.youtube.player.loadVideoById(that.youtube.videoId);
+                    event.target.loadVideoById(that.youtube.videoId);
+                    event.target.loadVideoById(that.youtube.videoId);
+                    that.playerReady = true;
+                    // this.playerReady = true;
+                    that.event = event;
+                    // this.event = event.target;
+                    if (that.startTime) {
+                        event.target.seekTo(that.startTime, true);
+                        that.startTime = null;
+                    }
                 },
                 'onStateChange': function (event) {
                     that.playerStateEmitter.next(event.data);
@@ -73,22 +84,31 @@ var YoutubeService = (function () {
     };
     YoutubeService.prototype.loadPlayer = function () {
         if (this.youtube.ready && this.youtube.playerId) {
-            if (this.youtube.player) {
-                this.youtube.player.destroy();
+            if (this.event && this.playerReady) {
+                this.event.target.destroy();
+                this.playerReady = false;
+                this.event = null;
             }
             this.youtube.player = this.createPlayer();
         }
     };
+    YoutubeService.prototype.destroyPlayer = function () {
+        if (this.event && this.playerReady) {
+            this.event.target.destroy();
+            this.playerReady = false;
+            this.event = null;
+        }
+    };
     YoutubeService.prototype.setupPlayer = function () {
         var _this = this;
-        this._window['onYouTubeIframeAPIReady'] = function () {
-            if (_this._window['YT']) {
+        this._window.nativeWindow['onYouTubeIframeAPIReady'] = function () {
+            if (_this._window.nativeWindow['YT']) {
                 _this.youtube.ready = true;
                 _this.bindPlayer('placeholder');
                 _this.loadPlayer();
             }
         };
-        if (this._window['YT'] && this._window['YT'].Player) {
+        if (this._window.nativeWindow['YT'] && this._window.nativeWindow['YT'].Player) {
             this.youtube.ready = true;
             this.bindPlayer('placeholder');
             this.loadPlayer();
@@ -101,11 +121,9 @@ var YoutubeService = (function () {
         return this.youtube;
     };
     YoutubeService.prototype.playVideo = function () {
-        console.log("ser: play");
         this.youtube.player.playVideo();
     };
     YoutubeService.prototype.pauseVideo = function () {
-        console.log("ser: pause");
         this.youtube.player.pauseVideo();
     };
     YoutubeService.prototype.muteVideo = function () {
@@ -116,7 +134,10 @@ var YoutubeService = (function () {
             this.youtube.player.unMute();
     };
     YoutubeService.prototype.fetchTime = function () {
-        return this.youtube.player.getCurrentTime();
+        if (this.playerReady && this.event) {
+            return this.event.target.getCurrentTime();
+        }
+        return 0;
     };
     YoutubeService.prototype.setVolume = function (value) {
         this.youtube.player.setVolume(value);
@@ -150,11 +171,11 @@ var YoutubeService = (function () {
         }
         return duration;
     };
-    YoutubeService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [window_1.WindowRef, http_1.Http])
-    ], YoutubeService);
     return YoutubeService;
 }());
+YoutubeService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [window_1.WindowRef, http_1.Http])
+], YoutubeService);
 exports.YoutubeService = YoutubeService;
 //# sourceMappingURL=youtube-player.service.js.map
